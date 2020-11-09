@@ -14,12 +14,12 @@
 
 int		read_line(int fd, char **line)
 {
-	char		buf[BUFFER_SIZE];
+	char		buf[BUFFER_SIZE + 1];
 	int			ret;
 
 	if (is_break(*line))
 		return (1);
-	while (ret = read(fd, buf, BUFFER_SIZE))
+	while ((ret = read(fd, buf, BUFFER_SIZE)))
 	{
 		if (ret == (-1))
 			return (-1);
@@ -32,7 +32,7 @@ int		read_line(int fd, char **line)
 	return (0);
 }
 
-int		before_break(char *line)
+char	*before_break(char *line)
 {
 	int		i;
 	char	*line_bis;
@@ -40,7 +40,7 @@ int		before_break(char *line)
 	i = 0;
 	while (line[i] && line[i] != '\n')
 		i++;
-	if (!(line_bis = (char *)malloc(sizeof(char) * i + 1)))
+	if (!(line_bis = (char *)malloc(sizeof(char) * (i + 1))))
 		return (0);
 	i = 0;
 	while (line[i] && line[i] != '\n')
@@ -52,7 +52,7 @@ int		before_break(char *line)
 	return (line_bis);
 }
 
-int		after_break(char *line)
+char	*after_break(char *line)
 {
 	int		i;
 	int		j;
@@ -60,18 +60,16 @@ int		after_break(char *line)
 
 	i = 0;
 	j = 0;
-	while (line[i])
+	while (line[i] && line[i] != '\n')
 		i++;
-	while (line[i--] != '\n')
-		j++;
 	i++;
-	if (!(line_bis = (char *)malloc(sizeof(char) * j + 1)))
+	if (!(line_bis = (char *)malloc(sizeof(char) * (ft_strlen(line) - i + 1))))
 		return (0);
-	j = 0;
 	while (line[i])
 		line_bis[j++] = line[i++];
 	line_bis[j] = '\0';
-	return (1);
+	free(line);
+	return (line_bis);
 }
 
 int		get_next_line(int fd, char **line)
@@ -83,13 +81,12 @@ int		get_next_line(int fd, char **line)
 		return (-1);
 	if (!new_line)
 	{
-		if (!(*line = (char*)malloc(sizeof(char))))
+		if (!(new_line = (char*)malloc(sizeof(char))))
 			return (-1);
-		**line = '\0';
-		*new_line = *line;
+		new_line[0] = '\0';
 	}
 	rep = read_line(fd, &new_line);
-	if (!(*line = before_break(&new_line)))
+	if (!(*line = before_break(new_line)))
 		return (-1);
 	if (rep == 1)
 		new_line = after_break(new_line);

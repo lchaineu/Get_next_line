@@ -27,8 +27,8 @@ int		ft_strlen(const char *str);
 char	*ft_strjoin(char *str1, char *str2);
 int		is_break(char *str);
 int		read_line(int fd, char **line);
-int		before_break(char *line);
-int		after_break(char *line);
+char	*before_break(char *line);
+char	*after_break(char *line);
 int		get_next_line(int fd, char **line);
 
 #endif
