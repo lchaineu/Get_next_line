@@ -16,6 +16,7 @@ int		read_line(int fd, char **line)
 {
 	char		buf[BUFFER_SIZE];
 	int			ret;
+
 	if (is_break(*line))
 		return (1);
 	while (ret = read(fd, buf, BUFFER_SIZE))
@@ -45,7 +46,7 @@ int		before_break(char *line)
 	while (line[i] && line[i] != '\n')
 	{
 		line_bis[i] = line[i];
-			i++;
+		i++;
 	}
 	line_bis[i] = '\0';
 	return (line_bis);
