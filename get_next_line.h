@@ -13,15 +13,15 @@
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-#ifndef		BUFFER_SIZE
-# define	BUFFER_SIZE 1024
-#endif
+# ifndef	BUFFER_SIZE
+#  define	BUFFER_SIZE 1024
+# endif
 
-#include <stdlib.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <sys/types.h>
-#include <sys/uio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <sys/types.h>
+# include <sys/uio.h>
 
 int		ft_strlen(const char *str);
 char	*ft_strjoin(char *str1, char *str2);
