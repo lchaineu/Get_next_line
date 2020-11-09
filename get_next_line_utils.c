@@ -24,7 +24,7 @@ int		ft_strlen(const char *str)
 
 char	*ft_strjoin(char *str1, char *str2)
 {
-	int		i;
+	int i;
 	int		j;
 	char	*res;
 	int		len;
