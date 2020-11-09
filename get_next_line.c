@@ -63,7 +63,8 @@ char	*after_break(char *line)
 	while (line[i] && line[i] != '\n')
 		i++;
 	i++;
-	if (!(line_bis = (char *)malloc(sizeof(char) * (ft_strlen(line) - i + 1))))
+	if (!(line_bis = (char *)malloc(sizeof(char) 
+		* (ft_strlen(line) - i + 1))))
 		return (0);
 	while (line[i])
 		line_bis[j++] = line[i++];
